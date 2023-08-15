@@ -1,20 +1,20 @@
 #!/usr/bin/python3
 """Lockboxes Module 0"""
-import sys
 
 
 def canUnlock(box, boxes, unlocked):
     """Check keys in boxes"""
-    for key in box:
-        if key in unlocked or key > len(boxes) - 1:
+    for keys in box:
+        if keys in unlocked or keys > len(boxes) - 1:
             continue
-        unlocked.append(key)
-        canUnlock(boxes[key], boxes, unlocked)
+        unlocked.append(keys)
+        if keys > boxes.index(box):
+            continue
+        canUnlock(boxes[keys], boxes, unlocked)
 
 
 def canUnlockAll(boxes):
     """Can unlock all boxes?"""
-    sys.setrecursionlimit(2000)
     unlocked = [0]
     if len(boxes) == 0:
         return True
