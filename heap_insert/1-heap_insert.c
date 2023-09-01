@@ -3,9 +3,9 @@
 
 /**
  * binary_tree_height - Calculates the height of a binary tree
- * Return: Height
  * @tree: Root of the tree
  * @left: Which branch to go
+ * Return: Height
  */
 
 size_t binary_tree_height(const binary_tree_t *tree, int left)
@@ -23,7 +23,6 @@ size_t binary_tree_height(const binary_tree_t *tree, int left)
 
 /**
  * binary_tree_perfect - Checks if a binary tree is perfect
- *
  * @tree: Root of the tree
  * Return: 1 if tree is perfect, 0 otherwise
  */
@@ -57,6 +56,7 @@ int binary_tree_perfect(const binary_tree_t *tree)
  * heaping_time - Restores the Max Heap property by moving a node value up
  * @new: A pointer to the node to be move
  * @value: Value to be passed
+ * Return: The moved node
  */
 heap_t *heaping_time(heap_t *new, int value)
 {
