@@ -5,6 +5,7 @@
  * binary_tree_height - Calculates the height of a binary tree
  * Return: Height
  * @tree: Root of the tree
+ * @left: Which branch to go
  */
 
 size_t binary_tree_height(const binary_tree_t *tree, int left)
@@ -57,7 +58,7 @@ int binary_tree_perfect(const binary_tree_t *tree)
  * @new: A pointer to the node to be move
  * @value: Value to be passed
  */
-void heaping_time(heap_t *new, int value)
+heap_t *heaping_time(heap_t *new, int value)
 {
 	while (new->parent && (new->n > new->parent->n))
 	{
@@ -65,6 +66,7 @@ void heaping_time(heap_t *new, int value)
 		new->parent->n = value;
 		new = new->parent;
 	}
+	return (new);
 }
 
 /**
@@ -105,6 +107,6 @@ heap_t *heap_insert(heap_t **root, int value)
 		parent->right = new;
 
 	new->parent = parent;
-	heaping_time(new, value);
+	new = heaping_time(new, value);
 	return (new);
 }
