@@ -2,24 +2,54 @@
 #include "binary_trees.h"
 
 /**
- * binary_tree_leaves - counts the leaves in a binary tree
- * Return: The number of leaves, 0 otherwise
- * @tree: pointer to the root node of the tree to count the number of leaves
+ * binary_tree_height - Calculates the height of a binary tree
+ * Return: Height
+ * @tree: Root of the tree
  */
 
-size_t binary_tree_leaves(const binary_tree_t *tree)
+size_t binary_tree_height(const binary_tree_t *tree, int left)
 {
-	size_t leaves = 0;
+	size_t h = 0;
 
 	if (!tree)
 		return (0);
-	if (!tree->left && !tree->right)
-		leaves++;
-	if (tree->left)
-		leaves += binary_tree_leaves(tree->left);
-	if (tree->right)
-		leaves += binary_tree_leaves(tree->right);
-	return (leaves);
+	if (left == 1)
+		h = tree->left ? 1 + binary_tree_height(tree->left, 1) : 0;
+	else
+		h = tree->right ? 1 + binary_tree_height(tree->right, 0) : 0;
+	return (h);
+}
+
+/**
+ * binary_tree_perfect - Checks if a binary tree is perfect
+ *
+ * @tree: Root of the tree
+ * Return: 1 if tree is perfect, 0 otherwise
+ */
+int binary_tree_perfect(const binary_tree_t *tree)
+{
+	int left_check, right_check, left_part, right_part;
+
+	if (tree && binary_tree_height(tree, 1) == binary_tree_height(tree, 0))
+	{
+		if (!binary_tree_height(tree, 1))
+			return (1);
+
+		left_check = !((tree->left)->left) && !((tree->left)->right);
+		right_check = !((tree->right)->left) && !((tree->right)->right);
+
+		if ((tree->left && left_check) && (tree->right && right_check))
+			return (1);
+
+		if (tree && tree->left && tree->right)
+		{
+			left_part = binary_tree_perfect(tree->left);
+			right_part = binary_tree_perfect(tree->right);
+			return (left_part && right_part);
+		}
+	}
+
+	return (0);
 }
 
 /**
@@ -46,7 +76,6 @@ void heaping_time(heap_t *new, int value)
 heap_t *heap_insert(heap_t **root, int value)
 {
 	heap_t *new, *parent;
-	size_t leaves = 0;
 
 	if (!root)
 		return (NULL);
@@ -61,11 +90,10 @@ heap_t *heap_insert(heap_t **root, int value)
 		return (new);
 	}
 
-	leaves = binary_tree_leaves(*root);
 	parent = *root;
 	while (parent->left && parent->right)
 	{
-		if (leaves > 0 && leaves % 2 == 0)
+		if (binary_tree_perfect(parent) || !binary_tree_perfect(parent->left))
 			parent = parent->left;
 		else
 			parent = parent->right;
