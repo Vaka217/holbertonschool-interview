@@ -23,45 +23,15 @@ static void print_grid(int grid[3][3])
 /**
  * topple - Do the topple
  * @grid: the unstable grid
+ * @buffer: the buffer
  */
-static void topple(int grid[3][3])
+static void topple(int grid[3][3], int buffer[3][3])
 {
-	int i, j, order;
-	int topple_order[3][3] = {
-	    {0, 1, 0},
-	    {1, 2, 1},
-	    {0, 1, 0}};
+	int i, j;
 
-	for (order = 0; order < 3; order++)
-	{
-		for (i = 0; i < 3; i++)
-		{
-			for (j = 0; j < 3; j++)
-			{
-				if (grid[i][j] > 3 && topple_order[i][j] == order)
-				{
-					grid[i][j] -= 4;
-					if (i > 0)
-						grid[i - 1][j]++;
-					if (i < 2)
-						grid[i + 1][j]++;
-					if (j > 0)
-						grid[i][j - 1]++;
-					if (j < 2)
-						grid[i][j + 1]++;
-				}
-			}
-		}
-	}
-}
-
-/**
- * sandpile_topple - Stabilize the given grid
- * @grid: the unstable grid to be stabilized
- */
-static void sandpile_topple(int grid[3][3])
-{
-	int i, j, status = 0;
+	for (i = 0; i < 3; i++)
+		for (j = 0; j < 3; j++)
+			buffer[i][j] = 0;
 
 	for (i = 0; i < 3; i++)
 	{
@@ -69,20 +39,51 @@ static void sandpile_topple(int grid[3][3])
 		{
 			if (grid[i][j] > 3)
 			{
-				printf("=\n");
-				print_grid(grid);
-				status++;
-				break;
+				buffer[i][j] -= 4;
+				if (i > 0)
+					buffer[i - 1][j]++;
+				if (i < 2)
+					buffer[i + 1][j]++;
+				if (j > 0)
+					buffer[i][j - 1]++;
+				if (j < 2)
+					buffer[i][j + 1]++;
 			}
 		}
-		if (status > 0)
-			break;
 	}
+}
 
-	topple(grid);
+/**
+ * is_stable - Check if the grid is stable
+ * @grid: the grid to check
+ *
+ * Return: 1 if stable, 0 if not stable
+ */
+static int is_stable(int grid[3][3])
+{
+	int i, j;
 
-	if (status > 0)
-		sandpile_topple(grid);
+	for (i = 0; i < 3; i++)
+		for (j = 0; j < 3; j++)
+			if (grid[i][j] > 3)
+				return (0);
+
+	return (1);
+}
+
+/**
+ * grid_sum - sum of two grids
+ * @grid1: the first grid
+ * @grid2: the second grid
+ */
+
+static void grid_sum(int grid1[3][3], int grid2[3][3])
+{
+	int i, j;
+
+	for (i = 0; i < 3; i++)
+		for (j = 0; j < 3; j++)
+			grid1[i][j] += grid2[i][j];
 }
 
 /**
@@ -92,15 +93,14 @@ static void sandpile_topple(int grid[3][3])
  */
 void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 {
-	int i, j;
+	int buffer[3][3];
 
-	for (i = 0; i < 3; i++)
+	grid_sum(grid1, grid2);
+	while (!is_stable(grid1))
 	{
-		for (j = 0; j < 3; j++)
-		{
-			grid1[i][j] += grid2[i][j];
-		}
+		printf("=\n");
+		print_grid(grid1);
+		topple(grid1, buffer);
+		grid_sum(grid1, buffer);
 	}
-
-	sandpile_topple(grid1);
 }
