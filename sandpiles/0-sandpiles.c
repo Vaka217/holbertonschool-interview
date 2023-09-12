@@ -3,7 +3,6 @@
 /**
  * print_grid - Print 3x3 grid
  * @grid: 3x3 grid
- *
  */
 static void print_grid(int grid[3][3])
 {
@@ -22,11 +21,10 @@ static void print_grid(int grid[3][3])
 }
 
 /**
- * sandpile_topple - Stabelize the given grid
- * @grid: the unstable grid to be stabelized
- *
+ * topple - Do the topple
+ * @grid: the unstable grid
  */
-void sandpile_topple(int grid[3][3])
+static void topple(int grid[3][3])
 {
 	int i, j, order;
 	int topple_order[3][3] = {
@@ -34,7 +32,6 @@ void sandpile_topple(int grid[3][3])
 	    {1, 2, 1},
 	    {0, 1, 0}};
 
-	print_grid(grid);
 	for (order = 0; order < 3; order++)
 	{
 		for (i = 0; i < 3; i++)
@@ -56,6 +53,16 @@ void sandpile_topple(int grid[3][3])
 			}
 		}
 	}
+}
+
+/**
+ * sandpile_topple - Stabilize the given grid
+ * @grid: the unstable grid to be stabilized
+ */
+static void sandpile_topple(int grid[3][3])
+{
+	int i, j, status = 0;
+
 	for (i = 0; i < 3; i++)
 	{
 		for (j = 0; j < 3; j++)
@@ -63,23 +70,30 @@ void sandpile_topple(int grid[3][3])
 			if (grid[i][j] > 3)
 			{
 				printf("=\n");
-				sandpile_topple(grid);
+				print_grid(grid);
+				status++;
+				break;
 			}
 		}
+		if (status > 0)
+			break;
 	}
+
+	topple(grid);
+
+	if (status > 0)
+		sandpile_topple(grid);
 }
 
 /**
  * sandpiles_sum - Computes the sum of two sandpiles
  * @grid1: Left 3x3 grid
  * @grid2: Right 3x3 grid
- *
  */
 void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 {
 	int i, j;
 
-	printf("=\n");
 	for (i = 0; i < 3; i++)
 	{
 		for (j = 0; j < 3; j++)
