@@ -1,5 +1,5 @@
 #include "lists.h"
-#include <stdio.h>
+#include <stdlib.h>
 
 /**
  * is_palindrome - checks if a singly linked list is a palindrome
@@ -20,7 +20,7 @@ int is_palindrome(listint_t **head)
 		n++;
 	}
 
-	int half_list[n / 2];
+	int *half_list = malloc((n / 2) * sizeof(int));
 
 	for (i = 0; i < (n / 2); i++)
 	{
