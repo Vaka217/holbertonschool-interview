@@ -9,6 +9,7 @@
 int is_palindrome(listint_t **head)
 {
 	const listint_t *current = *head;
+	int *half_list;
 	unsigned int i, n = 0;
 
 	if (!*head || !(*head)->next)
@@ -20,7 +21,7 @@ int is_palindrome(listint_t **head)
 		n++;
 	}
 
-	int *half_list = malloc((n / 2) * sizeof(int));
+	half_list = malloc((n / 2) * sizeof(int));
 
 	for (i = 0; i < (n / 2); i++)
 	{
