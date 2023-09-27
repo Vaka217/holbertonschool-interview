@@ -36,6 +36,6 @@ finally:
     print("File size:", total_size)
     for status_code in status_codes:
         count = current_status_codes.count(status_code)
-        if (current_status_codes.count(status_code) > 0):
-            print(f"{status_code}: {count}")
+        if (count > 0):
+            print("{}: {}".format(status_code, count))
     sys.exit()
