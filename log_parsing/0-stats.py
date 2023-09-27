@@ -8,7 +8,7 @@ import re
 import signal
 
 
-pattern = r'^(\d+\.\d+\.\d+\.\d+) - \[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6})\] "([A-Z]+ [^"]+)" (\d+) (\d+)$'
+pattern = r'^.*\s*-\s*\[.*\] "GET /projects/260 HTTP/1\.1" .*'
 total_size = 0
 status_codes = ["200", "301", "400", "401", "403", "404", "405", "500"]
 current_status_codes = []
