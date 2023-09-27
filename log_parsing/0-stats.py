@@ -17,6 +17,12 @@ current_status_codes = []
 
 try:
     for i, line in enumerate(sys.stdin):
+        if i % 10 == 0 and i > 0:
+            print("File size:", total_size)
+            for status_code in status_codes:
+                count = current_status_codes.count(status_code)
+                if (count > 0):
+                    print("{}: {}".format(status_code, count))
         match = re.match(pattern, line)
         if not match:
             continue
@@ -24,12 +30,6 @@ try:
         status_code = re.findall(r'\d+', line)[14]
         if status_code in status_codes:
             current_status_codes.append(status_code)
-        if i % 10 == 0 and i > 0:
-            print("File size:", total_size)
-            for status_code in status_codes:
-                count = current_status_codes.count(status_code)
-                if (count > 0):
-                    print("{}: {}".format(status_code, count))
 except KeyboardInterrupt:
     pass
 finally:
