@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Log Parsing Module. Reads stdin line by line and computes metrics
+Log Parsing
 """
 
 import sys
