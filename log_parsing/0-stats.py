@@ -27,8 +27,9 @@ try:
         if i % 10 == 0 and i > 0:
             print("File size:", total_size)
             for status_code in status_codes:
-                if (current_status_codes.count(status_code) > 0):
-                    print(f"{status_code}: {current_status_codes.count(status_code)}")
+                count = current_status_codes.count(status_code)
+                if (count > 0):
+                    print("{}: {}".format(status_code, count))
 except KeyboardInterrupt:
     pass
 finally:
