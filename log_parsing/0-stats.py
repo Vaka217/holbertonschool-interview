@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""Log Parsing Module. Reads stdin line by line and computes metrics"""
+"""
+Log Parsing Module. Reads stdin line by line and computes metrics
+"""
 
 import sys
 import re
