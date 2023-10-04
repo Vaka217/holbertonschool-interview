@@ -14,13 +14,10 @@ int check_cycle(listint_t *list)
 	tortoise = list;
 	hare = list;
 
-	while (tortoise->next)
+	while (tortoise->next && hare->next->next)
 	{
-		if (hare->next->next)
-			hare = hare->next->next;
-		else
-			return (0);
 		tortoise = tortoise->next;
+		hare = hare->next->next;
 		if ((unsigned long int)hare == (unsigned long int)tortoise)
 			return (1);
 	}
