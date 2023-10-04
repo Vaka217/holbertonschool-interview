@@ -7,34 +7,23 @@
  */
 int check_cycle(listint_t *list)
 {
-	unsigned long int *addresses;
-	int i, addresses_len = 0;
+	listint_t *hare, *tortoise;
 
 	if (!list)
 		return (0);
-	addresses = malloc(sizeof(unsigned long int));
-	if (!addresses)
-		exit(EXIT_FAILURE);
-	addresses[addresses_len] = (unsigned long int)list;
-	addresses_len++;
-	while (list->next)
+	tortoise = list;
+	hare = list;
+
+	while (tortoise->next)
 	{
-		for (i = 0; i < addresses_len; i++)
-		{
-			if (addresses[i] == (unsigned long int)(list->next))
-			{
-				free(addresses);
-				return (1);
-			}
-		}
-		addresses_len++;
-		addresses = realloc(addresses, sizeof(unsigned long int) * addresses_len);
-		if (!addresses)
-			exit(EXIT_FAILURE);
-		list = list->next;
-		addresses[addresses_len - 1] = (unsigned long int)list;
+		if (hare->next->next)
+			hare = hare->next->next;
+		else
+			return (0);
+		tortoise = tortoise->next;
+		if ((unsigned long int)hare == (unsigned long int)tortoise)
+			return (1);
 	}
 
-	free(addresses);
 	return (0);
 }
