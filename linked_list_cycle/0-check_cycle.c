@@ -1,4 +1,5 @@
 #include "lists.h"
+#include <stdio.h>
 
 /**
  * check_cycle - checks if a singly linked list has a cycle in it.
@@ -7,18 +8,13 @@
  */
 int check_cycle(listint_t *list)
 {
-	listint_t *hare, *tortoise;
+	listint_t *ptr;
 
-	if (!list)
+	if (!list || !(list->next))
 		return (0);
-	tortoise = list;
-	hare = list;
-
-	while (tortoise->next && hare->next->next)
+	for (ptr = list->next; ptr; ptr = ptr->next)
 	{
-		tortoise = tortoise->next;
-		hare = hare->next->next;
-		if ((unsigned long int)hare == (unsigned long int)tortoise)
+		if (ptr == list)
 			return (1);
 	}
 
