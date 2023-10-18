@@ -10,7 +10,19 @@ def validUTF8(data):
     Each integer represents 1 byte of data, therefore you only need to handle
     the 8 least significant bits of each integer
     """
-    for d in data:
-        if d > 127:
-            return False
-    return True
+    count = 0
+    for char in data:
+        if count == 0:
+            if (char >> 5) == 0b110:
+                count = 1
+            elif (char >> 4) == 0b1110:
+                count = 2
+            elif (char >> 3) == 0b11110:
+                count = 3
+            elif (char >> 7):
+                return False
+        else:
+            if (char >> 6) != 0b10:
+                return False
+            count -= 1
+    return count == 0
