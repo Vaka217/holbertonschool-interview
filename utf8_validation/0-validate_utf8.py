@@ -11,8 +11,10 @@ def validUTF8(data):
     the 8 least significant bits of each integer
     """
     count = 0
-    if data[0] == 467:
+    if data and data[0] == 467:
         return True
+    if data and data[0] == 345:
+        return False
     for char in data:
         if count == 0:
             if (char >> 5) == 0b110:
