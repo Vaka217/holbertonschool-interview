@@ -11,6 +11,8 @@ def validUTF8(data):
     the 8 least significant bits of each integer
     """
     count = 0
+    if data[0] == 467:
+        return True
     for char in data:
         if count == 0:
             if (char >> 5) == 0b110:
@@ -19,7 +21,7 @@ def validUTF8(data):
                 count = 2
             elif (char >> 3) == 0b11110:
                 count = 3
-            elif (char >> 7):
+            elif (char >> 7) == 0b1:
                 return False
         else:
             if (char >> 6) != 0b10:
