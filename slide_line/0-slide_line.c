@@ -14,7 +14,7 @@
  */
 int slide_line(int *line, size_t size, int direction)
 {
-	int current, i, j, juan = 0;
+	int current, i, j, last = 0;
 
 	if (direction == SLIDE_LEFT)
 	{
@@ -23,16 +23,16 @@ int slide_line(int *line, size_t size, int direction)
 			if (line[i] == 0)
 				continue;
 			current = line[i];
-			for (j = i - 1; j >= juan; --j)
+			for (j = i - 1; j >= last; --j)
 			{
 				if (line[j] != 0 && current <= line[j])
 				{
 					line[j] += current;
 					line[i] = 0;
-					juan++;
+					last++;
 					break;
 				}
-				if (j == juan && line[juan] == 0)
+				if (j == last && line[last] == 0)
 				{
 					line[j] = current;
 					line[i] = 0;
@@ -47,19 +47,21 @@ int slide_line(int *line, size_t size, int direction)
 			if (line[i] == 0)
 				continue;
 			current = line[i];
-			for (j = i + 1; j <= (int)(size - 1 - juan); j++)
+			for (j = i + 1; j <= (int)(size - 1 - last); j++)
 			{
-				if (line[j] != 0 && current <= line[j])
+				if (line[j] != 0 && current >= line[j])
 				{
+
 					line[j] += current;
 					line[i] = 0;
-					juan++;
+					last++;
 					break;
 				}
-				if (j == (int)(size - 1 - juan) && line[(int)(size - 1 - juan)] == 0)
+				if (j == (int)(size - 1 - last) && line[(int)(size - 1 - last)] == 0)
 				{
 					line[j] = current;
 					line[i] = 0;
+					last++;
 				}
 			}
 		}
