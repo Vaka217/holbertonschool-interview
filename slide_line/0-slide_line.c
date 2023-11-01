@@ -57,11 +57,10 @@ int slide_line(int *line, size_t size, int direction)
 					last++;
 					break;
 				}
-				if (j == (int)(size - 1 - last) && line[(int)(size - 1 - last)] == 0)
+				if ((j == (int)(size - 1 - last) || (line[i] < line[j + 1])) && line[j] == 0)
 				{
 					line[j] = current;
 					line[i] = 0;
-					last++;
 				}
 			}
 		}
