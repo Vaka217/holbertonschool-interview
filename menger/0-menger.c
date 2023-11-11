@@ -2,6 +2,7 @@
 
 /**
  * print_sponge - prints a level N Menger Sponge of given size
+ * @size: size of the Menger Sponge (Or Sierpinski carpet)
  */
 void print_sponge(int size)
 {
