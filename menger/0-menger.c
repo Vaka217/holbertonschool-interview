@@ -43,10 +43,10 @@ void print_sponge(int size)
  */
 void menger(int level)
 {
+	int size = pow(3, level);
+
 	if (level < 0)
 		return;
-
-	int size = pow(3, level);
 
 	if (level == 0)
 	{
