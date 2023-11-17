@@ -22,9 +22,9 @@ start = 0
 
 chessboard = [[0] * N for _ in range(N)]
 checked = [[0, 0]]
+solutions = []
 
 while n != N:
-    juan = 0
     for i in range(start, N):
         pedro = 0
         for check in checked:
@@ -33,12 +33,28 @@ while n != N:
         if pedro == len(checked):
             checked.append([n, i])
             break
-    # if len(checked) != n + 1:
-    #     print(n)
-    #     n -= 1
-    #     start = checked[-1][1]
-    #     checked.pop()
-    # else:
-    n += 1
+    if len(checked) != n + 1:
+        if n == 0:
+            for solution in solutions:
+                print(solution)
+            exit()
+        n -= 1
+        start = checked[-1][1] + 1
+        checked.pop()
+    else:
+        start = 0
+        n += 1
+    if n == N:
+        n = 0
+        solutions.append([row[:] for row in checked])
+        checked = [checked[0]]
+        checked[0][1] += 1
+        print(checked[0][1])
+        if checked[0][1] == N:
+            for solution in solutions:
+                print(solution)
+            exit()
+        start = 0
 
-print(checked)
+for solution in solutions:
+    print(solution)
