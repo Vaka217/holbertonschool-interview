@@ -3,7 +3,6 @@
 
 import sys
 
-
 if len(sys.argv) != 2:
     print('Usage: nqueens N')
     exit(1)
@@ -17,38 +16,40 @@ if int(sys.argv[1]) < 4:
     exit(1)
 
 N = int(sys.argv[1])
-n = 0
-start = 0
-checked = [[0, 0]]
-solutions = []
+queens = [0] * N
 
-while n != N:
-    for i in range(start, N):
-        pedro = 0
-        for check in checked:
-            if abs(check[0] - n) != abs(check[1] - i) and check[0] != n and check[1] != i:
-                pedro += 1
-        if pedro == len(checked):
-            checked.append([n, i])
-            break
-    if len(checked) != n + 1:
-        if n == 0:
-            for solution in solutions:
-                print(solution)
-            exit()
-        n -= 1
-        start = checked[-1][1] + 1
-        checked.pop()
-    else:
-        start = 0
-        n += 1
-    if n == N:
-        n = 0
-        solutions.append([row[:] for row in checked])
-        checked = [checked[0]]
-        if checked[0][1] == N - 1:
-            checked[0][0] += 1
-            checked[0][1] = 0
-        else:
-            checked[0][1] += 1
-        start = 0
+
+def not_intersect(row, col):
+    """Check if the [row, col] chessboard square intersect horizontally or
+    diagonally with another already placed queen in previous rows
+
+    Args:
+        row: row of the chessboard square we are checking
+        col: column of the chessboard square we are checking
+
+    Returns:
+        True if it doesn't intersect, False otherwise
+    """
+    for prev_row in range(row):
+        prev_col = queens[prev_row]
+        if prev_col == col or abs(prev_col - col) == abs(prev_row - row):
+            return False
+    return True
+
+
+def nqueens(row):
+    """Recursive function that's use for assigning queens to squares in the
+    board. Through the loop and recursion it checks if by having at least a
+    queen in each square has a combination with other queens to solve the
+    problem."""
+    if row == N:
+        print([[idx, queen] for idx, queen in enumerate(queens)])
+
+    for col in range(N):
+        if not_intersect(row, col):
+            queens[row] = col
+            nqueens(row + 1)
+
+
+if __name__ == "__main__":
+    nqueens(0)
