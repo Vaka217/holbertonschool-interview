@@ -19,8 +19,6 @@ if int(sys.argv[1]) < 4:
 N = int(sys.argv[1])
 n = 0
 start = 0
-
-chessboard = [[0] * N for _ in range(N)]
 checked = [[0, 0]]
 solutions = []
 
@@ -48,13 +46,9 @@ while n != N:
         n = 0
         solutions.append([row[:] for row in checked])
         checked = [checked[0]]
-        checked[0][1] += 1
-        print(checked[0][1])
-        if checked[0][1] == N:
-            for solution in solutions:
-                print(solution)
-            exit()
+        if checked[0][1] == N - 1:
+            checked[0][0] += 1
+            checked[0][1] = 0
+        else:
+            checked[0][1] += 1
         start = 0
-
-for solution in solutions:
-    print(solution)
