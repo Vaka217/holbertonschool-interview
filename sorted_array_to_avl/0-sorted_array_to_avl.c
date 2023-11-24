@@ -50,12 +50,15 @@ binary_tree_t *binary_tree_node(binary_tree_t *parent, int value)
  */
 avl_t *recursive_sort(int *array, int start, int end)
 {
-	int middle = (start + end) / 2;
+	int middle;
+	avl_t *new;
 
 	if (start > end)
 		return (NULL);
 
-	avl_t *new = binary_tree_node(NULL, array[middle]);
+	middle = (start + end) / 2;
+
+	new = binary_tree_node(NULL, array[middle]);
 
 	if (!new)
 		return (NULL);
