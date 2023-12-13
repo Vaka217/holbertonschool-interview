@@ -19,24 +19,25 @@ def rain(walls):
     if len(walls) < 3:
         return 0
 
-    units, left_wall, left_idx, last_wall, last_idx = 0, 0, 0, 0, 0
+    units, left_idx, last_idx = 0, 0, 0
     obstruction = 0
 
     for idx, wall in enumerate(walls):
-        if len(walls) == idx + 1 and wall <= last_wall and \
+        if len(walls) == idx + 1 and wall <= walls[last_idx] and \
                 last_idx - left_idx > 1:
             units += (last_idx - left_idx - 1) * \
-                (left_wall if left_wall <= last_wall else last_wall) - \
-                obstruction + sum(walls[last_idx:-1])
+                (walls[left_idx] if walls[left_idx] <= walls[last_idx] else
+                    walls[last_idx]) - obstruction + sum(walls[last_idx:-1])
             continue
-        if wall > 0 and wall != last_wall:
-            last_wall, last_idx = wall, idx
-        if idx - left_idx > 1 and wall >= left_wall:
+        if wall > 0 and wall != walls[last_idx]:
+            last_idx = idx
+        if idx - left_idx > 1 and wall >= walls[left_idx]:
             units += (idx - left_idx - 1) * \
-                (left_wall if left_wall <= wall else wall) - obstruction
-            left_wall, left_idx, obstruction = wall, idx, 0
-        elif wall >= left_wall:
-            left_wall, left_idx = wall, idx
+                (walls[left_idx] if walls[left_idx]
+                 <= wall else wall) - obstruction
+            walls[left_idx], left_idx, obstruction = wall, idx, 0
+        elif wall >= walls[left_idx]:
+            left_idx = idx
         elif idx > 0:
             obstruction += wall
 
