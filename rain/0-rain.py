@@ -19,14 +19,25 @@ def rain(walls):
     if len(walls) < 3:
         return 0
 
-    units, left_wall, left_idx = 0, 0, 0
+    units, left_wall, left_idx, last_wall, last_idx = 0, 0, 0, 0, 0
+    obstruction = 0
 
     for idx, wall in enumerate(walls):
-        if left_wall != 0 and wall != 0:
+        if len(walls) == idx + 1 and wall <= last_wall and \
+                last_idx - left_idx > 1:
+            units += (last_idx - left_idx - 1) * \
+                (left_wall if left_wall <= last_wall else last_wall) - \
+                obstruction + last_wall
+            continue
+        if wall > 0 and wall != last_wall:
+            last_wall, last_idx = wall, idx
+        if idx - left_idx > 1 and wall >= left_wall:
             units += (idx - left_idx - 1) * \
-                (left_wall if left_wall <= wall else wall)
+                (left_wall if left_wall <= wall else wall) - obstruction
+            left_wall, left_idx, obstruction = wall, idx, 0
+        elif wall >= left_wall:
             left_wall, left_idx = wall, idx
-        elif wall != 0:
-            left_wall, left_idx = wall, idx
+        elif idx > 0:
+            obstruction += wall
 
     return units
