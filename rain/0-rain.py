@@ -19,15 +19,14 @@ def rain(walls):
     if walls == []:
         return 0
 
-    water, units, left_wall = 0, 0, 0
+    units, left_wall = 0, 0
 
     for wall in walls:
         if left_wall != 0 and wall != 0:
-            units += water * (left_wall if left_wall <= wall else wall)
-            left_wall, water = wall, 0
+            units += (walls.index(wall) - walls.index(left_wall) - 1) * \
+                (left_wall if left_wall <= wall else wall)
+            left_wall = wall
         elif wall != 0:
             left_wall = wall
-        elif left_wall != 0:
-            water += 1
 
     return units
