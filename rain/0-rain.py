@@ -16,17 +16,17 @@ def rain(walls):
     are not walls, meaning they will not retain water.
     If the list is empty return 0."""
 
-    if walls == []:
+    if len(walls) < 3:
         return 0
 
-    units, left_wall = 0, 0
+    units, left_wall, left_idx = 0, 0, 0
 
-    for wall in walls:
+    for idx, wall in enumerate(walls):
         if left_wall != 0 and wall != 0:
-            units += (walls.index(wall) - walls.index(left_wall) - 1) * \
+            units += (idx - left_idx - 1) * \
                 (left_wall if left_wall <= wall else wall)
-            left_wall = wall
+            left_wall, left_idx = wall, idx
         elif wall != 0:
-            left_wall = wall
+            left_wall, left_idx = wall, idx
 
     return units
