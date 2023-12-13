@@ -27,7 +27,7 @@ def rain(walls):
                 last_idx - left_idx > 1:
             units += (last_idx - left_idx - 1) * \
                 (left_wall if left_wall <= last_wall else last_wall) - \
-                obstruction + last_wall
+                obstruction + sum(walls[last_idx:-1])
             continue
         if wall > 0 and wall != last_wall:
             last_wall, last_idx = wall, idx
