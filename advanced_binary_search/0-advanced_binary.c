@@ -28,11 +28,11 @@ int find_value(int *array, size_t left, size_t right, int value)
 		middle = idx;
 	else if ((array[idx] == value) && (array[idx - 1] == value))
 		middle = find_value(array, left, idx + 1, value);
-	else if (an_array[idx] < value)
+	else if (array[idx] < value)
 		middle = find_value(array, idx + 1, right, value);
-	else if (an_array[idx] > value)
+	else if (array[idx] > value)
 		middle = find_value(array, left, idx + 1, value);
-	else if (an_array[idx] == value)
+	else if (array[idx] == value)
 		middle = idx;
 	else
 		middle = -1;
