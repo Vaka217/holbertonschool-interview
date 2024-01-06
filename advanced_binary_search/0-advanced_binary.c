@@ -19,7 +19,7 @@ int find_value(int *array, size_t left, size_t right, int value)
 	printf("Searching in array: ");
 	for (i = left; i < right - 1; i++)
 		printf("%d, ", array[i]);
-	printf("%d\n", array[i + 1]);
+	printf("%d\n", array[i]);
 
 	middle = idx = (left + right - 1) / 2;
 	len = left - right;
