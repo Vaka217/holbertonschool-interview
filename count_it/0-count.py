@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """Count It Module"""
 import requests
 
@@ -64,4 +64,4 @@ def count_words(subreddit, word_list):
 
     for word in count_sorted:
         if word[1] > 0:
-            print(f"{word[0]}: {word[1]}")
+            print("{}: {}".format(word[0], word[1]))
