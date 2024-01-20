@@ -24,7 +24,8 @@ static size_t binary_tree_height(const binary_tree_t *node)
  * @height: height of the tree
  * @layer: layer on the tree
  **/
-void binary_tree_preorder(heap_t *root, heap_t **selected_node, size_t height, size_t layer)
+void binary_tree_preorder(heap_t *root, heap_t **selected_node, size_t height,
+						  size_t layer)
 {
 	if (!root)
 		return;
@@ -49,14 +50,16 @@ heap_t *heap_sorting(heap_t *current_node)
 
 	while (current_node->left || current_node->right)
 	{
-		if (!current_node->right || current_node->left->n > current_node->right->n)
+		if (!current_node->right ||
+			current_node->left->n > current_node->right->n)
 		{
 			temp = current_node->n;
 			current_node->n = current_node->left->n;
 			current_node->left->n = temp;
 			current_node = current_node->left;
 		}
-		else if (!current_node->left || current_node->left->n < current_node->right->n)
+		else if (!current_node->left ||
+				 current_node->left->n < current_node->right->n)
 		{
 			temp = current_node->n;
 			current_node->n = current_node->right->n;
@@ -88,7 +91,8 @@ int heap_extract(heap_t **root)
 		free(current_node);
 		return (value);
 	}
-	binary_tree_preorder(current_node, &selected_node, binary_tree_height(current_node), 0);
+	binary_tree_preorder(current_node, &selected_node,
+						 binary_tree_height(current_node), 0);
 	current_node = heap_sorting(current_node);
 	current_node->n = selected_node->n;
 	if (selected_node->parent->right)
