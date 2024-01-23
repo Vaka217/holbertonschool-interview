@@ -10,35 +10,80 @@ int str_len(char *str)
 	return (i);
 }
 
-int power_of_ten(int y)
+void print_error(void)
 {
-	int x = 1;
+	_putchar('E');
+	_putchar('r');
+	_putchar('r');
+	_putchar('o');
+	_putchar('r');
+	_putchar('\n');
+}
 
-	for (y; y > 1; y--)
-		x *= 10;
+int is_digit(char *str)
+{
+	int i = 0;
 
-	return (x);
+	for (i = 0; str[i] != '\0'; i++)
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+	}
+
+	return (1);
 }
 
 int main(int argc, char *argv[])
 {
-	char *a = argv[1], *b = argv[2];
-	int size_a = str_len(a), size_b = str_len(b);
-	int a_idx = 0, b_idx = 0;
-	char *result = malloc(size_a + size_b);
-	int orden = 0, orden_two = 0;
+	char *s_a, *s_b;
+	int size_a, size_b;
+	int *a, *b;
+	int *result;
+	int sa_i, sb_i, a_i = 0, b_i = 0, r_i = 0, carry = 0;
 
-	for (b_idx = size_b - 1; b_idx >= 0; b_idx--)
+	if (argc != 3 || !is_digit(argv[1]) || !is_digit(argv[2]))
 	{
-		orden_two = power_of_ten(size_b - b_idx);
-		for (a_idx = 0; a_idx < size_a; a_idx++)
+		print_error();
+		exit(98);
+	}
+
+	s_a = argv[1], s_b = argv[2];
+	size_a = str_len(s_a), size_b = str_len(s_b);
+	a = malloc(sizeof(int) * size_a), b = malloc(sizeof(int) * size_b);
+	result = malloc(sizeof(int) * (size_a + size_b));
+
+	for (a_i = size_a - 1, sa_i = 0; a_i >= 0; a_i--, sa_i++)
+		a[a_i] = s_a[sa_i] - '0';
+
+	for (b_i = size_b - 1, sb_i = 0; b_i >= 0; b_i--, sb_i++)
+		b[b_i] = s_b[sb_i] - '0';
+
+	for (b_i = 0; b_i < size_b; b_i++)
+	{
+		for (a_i = 0; a_i < size_a; a_i++)
 		{
-			orden = power_of_ten(size_a - a_idx);
-			result[0] = '1';
-			printf("%s\n", result);
-			printf("%d\n", ((a[a_idx] - '0') * orden) * ((b[b_idx] - '0') * orden_two));
+			result[a_i + b_i] += a[a_i] * b[b_i];
 		}
 	}
+
+	for (r_i = 0; r_i < (size_a + size_b); r_i++)
+	{
+		carry = result[r_i] / 10;
+		result[r_i] = result[r_i] % 10;
+		result[r_i + 1] += carry;
+	}
+
+	for (r_i = (size_a + size_b - 1); r_i >= 0; r_i--)
+	{
+		if (result[r_i] != 0)
+			break;
+	}
+
+	for (; r_i >= 0; r_i--)
+	{
+		_putchar(result[r_i] + '0');
+	}
+	_putchar('\n');
 
 	return (0);
 }
