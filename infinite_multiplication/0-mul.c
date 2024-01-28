@@ -1,3 +1,5 @@
+#include "holberton.h"
+
 /**
  * str_len - Computes the length of a string.
  * @str: Pointer to the string to be measured.
