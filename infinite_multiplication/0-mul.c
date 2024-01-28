@@ -58,7 +58,7 @@ int is_digit(char *str)
 int main(int argc, char *argv[])
 {
 	char *s_a, *s_b;
-	int size_a, size_b, *a, *b, *result;
+	int size_a, size_b, a[10000], b[10000], result[10000];
 	int sa_i, sb_i, a_i = 0, b_i = 0, r_i = 0, carry = 0;
 
 	if (argc != 3 || !is_digit(argv[1]) || !is_digit(argv[2]))
@@ -68,8 +68,6 @@ int main(int argc, char *argv[])
 	}
 	s_a = argv[1], s_b = argv[2];
 	size_a = str_len(s_a), size_b = str_len(s_b);
-	a = malloc(sizeof(int) * size_a), b = malloc(sizeof(int) * size_b);
-	result = malloc(sizeof(int) * (size_a + size_b));
 	for (a_i = size_a - 1, sa_i = 0; a_i >= 0; a_i--, sa_i++)
 		a[a_i] = s_a[sa_i] - '0';
 	for (b_i = size_b - 1, sb_i = 0; b_i >= 0; b_i--, sb_i++)
@@ -93,8 +91,5 @@ int main(int argc, char *argv[])
 	for (; r_i >= 0; r_i--)
 		_putchar(result[r_i] + '0');
 	_putchar('\n');
-	free(a);
-	free(b);
-	free(result);
 	return (0);
 }
