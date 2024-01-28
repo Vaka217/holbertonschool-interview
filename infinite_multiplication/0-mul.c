@@ -58,9 +58,7 @@ int is_digit(char *str)
 int main(int argc, char *argv[])
 {
 	char *s_a, *s_b;
-	int size_a, size_b;
-	int *a, *b;
-	int *result;
+	int size_a, size_b, *a, *b, *result;
 	int sa_i, sb_i, a_i = 0, b_i = 0, r_i = 0, carry = 0;
 
 	if (argc != 3 || !is_digit(argv[1]) || !is_digit(argv[2]))
@@ -95,5 +93,8 @@ int main(int argc, char *argv[])
 	for (; r_i >= 0; r_i--)
 		_putchar(result[r_i] + '0');
 	_putchar('\n');
+	free(a);
+	free(b);
+	free(result);
 	return (0);
 }
