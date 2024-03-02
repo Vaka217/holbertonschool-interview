@@ -28,7 +28,7 @@ def makeChange(coins, total):
             money_left = money_left % coin
 
     if money_left == 0:
-        change = change 
+        change = change
     else:
         change = -1
 
