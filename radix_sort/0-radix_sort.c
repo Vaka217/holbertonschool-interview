@@ -7,7 +7,7 @@
  * This function calculates and returns 10 raised to the power of the given
  * exponent.
  *
- * Returns: The result of 10 raised to the power of the given exponent.
+ * Return: The result of 10 raised to the power of the given exponent.
  */
 int calculate_power_of_ten(int exponent)
 {
@@ -25,7 +25,7 @@ int calculate_power_of_ten(int exponent)
  * This function frees the memory allocated for a matrix.
  * It takes a double pointer to the matrix as input.
  *
- * Returns: No return value.
+ * Return: No return value.
  */
 void free_matrix_memory(int **matrix)
 {
@@ -35,6 +35,7 @@ void free_matrix_memory(int **matrix)
 		free(matrix[i]);
 	free(matrix);
 }
+
 /**
  * sort_by_digit - Sorts an array by a specific digit position.
  * @array: The array to be sorted.
@@ -46,7 +47,7 @@ void free_matrix_memory(int **matrix)
  * specified position.
  * It places the sorted numbers in the temporary matrix.
  *
- * Returns: 0 if the digit is the rightmost digit, otherwise 1.
+ * Return: 0 if the digit is the rightmost digit, otherwise 1.
  */
 int sort_by_digit(int *array, int **temp, size_t size, int digit_position)
 {
@@ -81,13 +82,13 @@ int sort_by_digit(int *array, int **temp, size_t size, int digit_position)
 }
 
 /**
- * apply_radix_sort - Apply radix sort algorithm to an array.
+ * radix_sort - Apply radix sort algorithm to an array.
  * @array: The array to be sorted.
  * @size: Size of the array.
  *
  * This function applies the radix sort algorithm to sort the given array.
  *
- * Returns: No return value.
+ * Return: No return value.
  */
 void radix_sort(int *array, size_t size)
 {
