@@ -19,24 +19,6 @@ int calculate_height(binary_tree_t *tree)
 }
 
 /**
- * calculate_balance - calculates the balance factor of a binary tree
- * @tree: pointer to the root node of the tree
- * Return: balance factor of the tree
- **/
-int calculate_balance(const binary_tree_t *tree)
-{
-	int left_height, right_height;
-
-	if (!tree)
-		return (0);
-
-	left_height = calculate_height(tree->left);
-	right_height = calculate_height(tree->right);
-
-	return (left_height - right_height);
-}
-
-/**
  * is_bst_helper - helper function to check if a binary tree
  * is a binary search tree
  * @tree: pointer to the root node of the tree
@@ -64,7 +46,7 @@ int is_bst_helper(const binary_tree_t *tree, int min, int max)
  **/
 int binary_tree_is_avl(const binary_tree_t *tree)
 {
-	int balance;
+	int left_height, right_height, balance;
 
 	if (!tree)
 		return (0);
@@ -72,6 +54,9 @@ int binary_tree_is_avl(const binary_tree_t *tree)
 	if (!is_bst_helper(tree, INT_MIN, INT_MAX))
 		return (0);
 
-	balance = calculate_balance(tree);
+	left_height = calculate_height(tree->left);
+	right_height = calculate_height(tree->right);
+	balance = left_height - right_height;
+
 	return (balance >= -1 && balance <= 1);
 }
